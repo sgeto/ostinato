@@ -53,12 +53,12 @@ install:
 
 before_build:
   # Prepare the out-of-source build directory.
-  - cd
+  - echo %cd%
   - mkdir %APPVEYOR_BUILD_FOLDER%-build
   - qmake -o %APPVEYOR_BUILD_FOLDER%-build -r -Wall -Wlogic -Wparser CONFIG+=%CONFIGURATION% %APPVEYOR_BUILD_FOLDER%
 
 build_script:
-  - cd %APPVEYOR_BUILD_FOLDER%-build
+#  - cd %APPVEYOR_BUILD_FOLDER%-build
 #  - qmake
   - '%make%'
 # make install will, by default, install the binaries in <top-level-directory>/bin.
