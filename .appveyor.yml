@@ -57,7 +57,7 @@ before_build:
 
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%-build
-  - qmake ..
+  - qmake
   - '%make%'
 
 after_build:
