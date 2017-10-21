@@ -54,12 +54,16 @@ install:
 before_build:
   # Prepare the out-of-source build directory.
   - mkdir %APPVEYOR_BUILD_FOLDER%-build
-  - qmake -o %APPVEYOR_BUILD_FOLDER%-build -r -Wall -Wlogic -Wparser CONFIG+=%CONFIGURATION% %APPVEYOR_BUILD_FOLDER%
+  - qmake #-o %APPVEYOR_BUILD_FOLDER%-build -r -Wall -Wlogic -Wparser CONFIG+=%CONFIGURATION% %APPVEYOR_BUILD_FOLDER%
 
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%-build
 #  - qmake
   - '%make%'
+# make install will, by default, install the binaries in <top-level-directory>/bin.
+# To provide a custom install path, pass PREFIX=/absolute/path/to/prefix/dir to qmake.
+# The binaries are installed in $PREFIX/bin/
+  - make install
 
 after_build:
   - tree /f
