@@ -36,11 +36,12 @@ configuration:
   - release
 
 install:
-  - appveyor-retry choco install doxygen.portable
-  - appveyor-retry choco install graphviz.portable
+#  - appveyor-retry choco install doxygen.portable
+#  - appveyor-retry choco install graphviz.portable
   # Setup the build toolchains.
   - '%QTDIR%\bin\qtenv2.bat'
   - qmake -v
+  - gcc -v
   - if %QTDIR:_64=%==%QTDIR% ( set ARCH=x86 ) else set ARCH=x64
   - if %QTDIR:msvc=%==%QTDIR% g++ --version
   - if %QTDIR:msvc=%==%QTDIR% set make=mingw32-make.exe
@@ -57,11 +58,12 @@ before_build:
 
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%-build
-  - qmake
+#  - qmake
   - '%make%'
 
 after_build:
   - tree /f
+  - cd && dir %APPVEYOR_BUILD_FOLDER%-build && cd
   # Add a link to the build output within the source directory. This is needed because AppVeyor does
   # not support extracting artifacts from out-of-source build directories. See 'artifacts' below.
 #  - mklink %APPVEYOR_BUILD_FOLDER%\qtaws.dll %APPVEYOR_BUILD_FOLDER%-build\%CONFIGURATION%\qtaws.dll
